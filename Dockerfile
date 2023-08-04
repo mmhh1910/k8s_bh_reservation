@@ -1,5 +1,4 @@
 FROM debian:stable
-
 RUN apt-get update -y && apt-get install -y wget curl unzip libgconf-2-4
 RUN apt-get update -y && apt-get install -y chromium xvfb python3 python3-pip 
 

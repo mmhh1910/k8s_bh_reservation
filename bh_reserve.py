@@ -9,6 +9,7 @@ from os import path
 import glob
 import time
 import smtplib
+import platform
 from email.message import EmailMessage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
