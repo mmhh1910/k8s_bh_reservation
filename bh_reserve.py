@@ -44,7 +44,6 @@ SMTP_TO = os.getenv('SMTP_TO')
 SMTP_FROM = os.getenv('SMTP_FROM')
 SEARCHTERMS = json.loads(os.environ['SEARCHTERMS'])
 
-
 lastimage=None
 
 # this function takes a screenshot of the current web page and saves it to the current directory

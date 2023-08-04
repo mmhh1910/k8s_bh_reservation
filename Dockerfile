@@ -17,4 +17,4 @@ COPY . .
 ENV DISPLAY=:99
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-CMD python3 bh_reserve.py
+CMD ["python3", "bh_reserve.py"]
