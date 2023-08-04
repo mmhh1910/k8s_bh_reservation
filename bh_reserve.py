@@ -45,6 +45,11 @@ SMTP_TO = os.getenv('SMTP_TO')
 SMTP_FROM = os.getenv('SMTP_FROM')
 SEARCHTERMS = json.loads(os.environ['SEARCHTERMS'])
 
+
+
+print(SEARCHTERMS)
+
+exit()
 lastimage=None
 
 # this function takes a screenshot of the current web page and saves it to the current directory
@@ -97,8 +102,8 @@ try:
     
 
     entries = {}
-    if path.exists("buecherhalle.pkl"):
-        with open("buecherhalle.pkl", "rb") as f:
+    if path.exists("/data/buecherhalle.pkl"):
+        with open("/data/buecherhalle.pkl", "rb") as f:
             entries = pickle.load(f)
 
     tod = datetime.now()
@@ -253,7 +258,7 @@ try:
              
         sr = sr.find_next("h3", class_="card-title")
 
-    with open("buecherhalle.pkl", "wb") as f:
+    with open("/data/buecherhalle.pkl", "wb") as f:
         pickle.dump(entries, f)
 
     files_to_delete = glob.glob(current_time+"*")

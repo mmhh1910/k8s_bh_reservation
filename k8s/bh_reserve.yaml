@@ -1,0 +1,63 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: bhreserve
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: bhreservationcontainerized:latest
+              name: bhreserve
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: SEARCHTERMS
+                  valueFrom:
+                    configMapKeyRef:
+                      name: bhreserve
+                      key: searchterms
+                - name: BH_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: BH_USER
+                - name: BH_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: BH_PASSWORD
+                - name: SMTP_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: SMTP_HOST
+                - name: SMTP_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: SMTP_USERNAME
+                - name: SMTP_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: SMTP_PASSWORD
+                - name: SMTP_TO
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: SMTP_TO
+                - name: SMTP_FROM
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: SMTP_FROM
+          restartPolicy: OnFailure
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bhreserve
+data:
+  searchterms: '["test","SPIEGEL","Spektrum","National"]'
