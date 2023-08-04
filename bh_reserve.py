@@ -42,6 +42,8 @@ SMTP_USERNAME = os.getenv('SMTP_USERNAME')
 SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
 SMTP_TO = os.getenv('SMTP_TO')
 SMTP_FROM = os.getenv('SMTP_FROM')
+SEARCHTERMS = json.loads(os.environ['SEARCHTERMS'])
+
 
 lastimage=None
 
@@ -115,14 +117,14 @@ try:
 
     bs = BeautifulSoup(req.text, "html.parser")
 
-    searchterms = ["test", "Wirtschaftswoche", "Spiegel Geld", "MOTORRAD"]
+
 
     sr = bs.find("h3", class_="card-title")
 
     
     while sr:
         link = sr.findNext("a", class_="link")
-        for searchterm in searchterms:
+        for searchterm in SEARCHTERMS:
             if sr.text.find(searchterm) > -1 and sr.text not in entries:
                 i=i+1
                 i_s=str(i)
