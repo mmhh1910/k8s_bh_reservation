@@ -2,11 +2,18 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: bhreserve
+  labels:
+    app: bhreserve
 spec:
+  timeZone: "Europe/Berlin"
   schedule: "* * * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: bhreserve
         spec:
           containers:
             - image: bhreservationcontainerized:latest
