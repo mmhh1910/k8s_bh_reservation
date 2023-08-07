@@ -13,6 +13,8 @@ RUN pip3 install -r requirements.txt --break-system-packages
 
 COPY . .
 
+RUN mkdir /data
+
 ENV DISPLAY=:99
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 

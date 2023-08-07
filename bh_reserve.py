@@ -48,8 +48,8 @@ SEARCHTERMS = json.loads(os.environ['SEARCHTERMS'])
 
 
 print(SEARCHTERMS)
+from pathlib import Path
 
-exit()
 lastimage=None
 
 # this function takes a screenshot of the current web page and saves it to the current directory
@@ -102,10 +102,12 @@ try:
     
 
     entries = {}
+
+    
     if path.exists("/data/buecherhalle.pkl"):
         with open("/data/buecherhalle.pkl", "rb") as f:
             entries = pickle.load(f)
-
+            print("/data/buecherhalle.pkl loaded. Entries: "+str(len(entries)))
     tod = datetime.now()
     d = timedelta(days=-7)
     a = tod - d
@@ -260,6 +262,7 @@ try:
 
     with open("/data/buecherhalle.pkl", "wb") as f:
         pickle.dump(entries, f)
+        print("/data/buecherhalle.pkl saved. Entries: "+str(len(entries)))
 
     files_to_delete = glob.glob(current_time+"*")
     for file_path in files_to_delete:
