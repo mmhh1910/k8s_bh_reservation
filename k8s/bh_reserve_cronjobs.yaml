@@ -59,41 +59,5 @@ spec:
           restartPolicy: OnFailure
           volumes:
             - name: bhreserve-pv
-              persistentVolumeClaim:
-                claimName: bhreserve-pv
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: bhreserve
-data:
-  searchterms: '["test","SPIEGEL","Spektrum","National"]'
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: bhreserve-pv
-spec:
-  storageClassName: localstorage
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Mi
-
----
-# How do we want it implemented
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: bhreserve-pv
-spec:
-  storageClassName: localstorage
-  capacity:
-    storage: 10Mi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
-  hostPath:
-    path: /mnt/d/pvc
-    type: DirectoryOrCreate
+              hostPath:
+                path: /data/bhreserve
