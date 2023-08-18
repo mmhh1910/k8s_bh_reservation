@@ -47,7 +47,8 @@ SMTP_FROM = os.getenv('SMTP_FROM')
 SEARCHTERMS = json.loads(os.environ['SEARCHTERMS'])
 
 
-print(SEARCHTERMS)
+print("Searchterm: ", SEARCHTERMS)
+# print("BH_USER: ", BH_USER)
 
 lastimage = None
 
@@ -108,6 +109,7 @@ try:
             entries = pickle.load(f)
             print("/data/buecherhalle.pkl loaded. Entries: "+str(len(entries)))
 
+    entries = {}
     firstrun = len(entries) == 0
     tod = datetime.now()
     d = timedelta(days=-7)
@@ -135,29 +137,24 @@ try:
                 i_s = str(i)
                 print('Searchterm '+searchterm+' hits ' + sr.text)
                 entries[sr.text] = 1
-                if firstrun:
-                    continue
+                #if firstrun:
+                #    continue
                 if display == None:
                     print('Starting display')
                     display = Display(visible=0, size=(800, 800))
                     display.start()
 
                     chromeOptions = webdriver.ChromeOptions()
-                    # chromeOptions.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2})
-                    chromeOptions.add_argument("--no-sandbox")
-                    chromeOptions.add_argument("--disable-setuid-sandbox")
-
-                    chromeOptions.add_argument(
-                        "--remote-debugging-port=9222")  # this
-
+                    #chromeOptions.add_argument("--no-sandbox")
+                    #chromeOptions.add_argument("--disable-setuid-sandbox")
+                    chromeOptions.add_argument("--remote-debugging-port=9222") 
                     chromeOptions.add_argument("--disable-dev-shm-using")
-                    chromeOptions.add_argument("--disable-extensions")
-                    # chromeOptions.add_argument("--disable-gpu")
+                    #chromeOptions.add_argument("--disable-extensions")
                     chromeOptions.add_argument("start-maximized")
-                    # chromeOptions.add_argument("disable-infobars")
-                    chromeOptions.add_argument(
-                        r"user-data-dir=.\cookies\\test")
-
+                    #chromeOptions.add_argument(r"user-data-dir=.\cookies\\test")
+                    chromeOptions.add_argument("--headless")
+                    chromeOptions.add_argument("--disable-gpu")
+                    chromeOptions.add_argument("--start-maximized")
                     driver = webdriver.Chrome(options=chromeOptions)
                     # Login
                     driver.get(

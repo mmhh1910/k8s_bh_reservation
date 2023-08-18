@@ -16,9 +16,8 @@ spec:
             app: bhreserve
         spec:
           containers:
-            - image: bhreservationcontainerized:latest
+            - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/bh_reservation:latest
               name: bhreserve
-              imagePullPolicy: IfNotPresent
               env:
                 - name: SEARCHTERMS
                   valueFrom:
@@ -63,6 +62,8 @@ spec:
               volumeMounts:
                 - mountPath: "/data"
                   name: bhreserve-pv
+          imagePullSecrets:
+            - name: registry-secret
           restartPolicy: OnFailure
           volumes:
             - name: bhreserve-pv
