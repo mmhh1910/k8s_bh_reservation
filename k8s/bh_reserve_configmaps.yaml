@@ -4,4 +4,4 @@ kind: ConfigMap
 metadata:
   name: bhreserve
 data:
-  searchterms: '["MOTORRAD"]'
+  searchterms: '["test", "SPIEGEL", "Spektrum", "National"]'

@@ -106,7 +106,6 @@ try:
             entries = pickle.load(f)
             print("/data/buecherhalle.pkl loaded. Entries: "+str(len(entries)))
 
-    entries = {}
     firstrun = len(entries) == 0
     tod = datetime.now()
     d = timedelta(days=-7)

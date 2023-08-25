@@ -33,6 +33,8 @@ spec:
               value: "4"
             - name: SE_NODE_OVERRIDE_MAX_SESSIONS
               value: "true"
+            - name: SE_NODE_SESSION_TIMEOUT
+              value: "60"
           resources:
             limits:
               memory: "2Gi"
