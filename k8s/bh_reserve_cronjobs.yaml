@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -67,5 +68,5 @@ spec:
           restartPolicy: OnFailure
           volumes:
             - name: bhreserve-pv
-              hostPath:
-                path: /data/bhreserve
+              persistentVolumeClaim:
+                claimName: bhreserve-pvc
