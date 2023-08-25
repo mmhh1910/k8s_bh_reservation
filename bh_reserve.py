@@ -25,13 +25,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-from pyvirtualdisplay import Display
-
 # load .env file with dotenv
 from dotenv import load_dotenv
 load_dotenv()
 
-display = None
 driver = None
 current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
@@ -139,23 +136,14 @@ try:
                 entries[sr.text] = 1
                 #if firstrun:
                 #    continue
-                if display == None:
-                    print('Starting display')
-                    display = Display(visible=0, size=(800, 800))
-                    display.start()
+                if driver == None:
 
-                    chromeOptions = webdriver.ChromeOptions()
-                    #chromeOptions.add_argument("--no-sandbox")
-                    #chromeOptions.add_argument("--disable-setuid-sandbox")
-                    chromeOptions.add_argument("--remote-debugging-port=9222") 
-                    chromeOptions.add_argument("--disable-dev-shm-using")
-                    #chromeOptions.add_argument("--disable-extensions")
-                    chromeOptions.add_argument("start-maximized")
-                    #chromeOptions.add_argument(r"user-data-dir=.\cookies\\test")
-                    chromeOptions.add_argument("--headless")
-                    chromeOptions.add_argument("--disable-gpu")
-                    chromeOptions.add_argument("--start-maximized")
-                    driver = webdriver.Chrome(options=chromeOptions)
+                    firefoxOptions = webdriver.FirefoxOptions()
+                    firefoxOptions.add_argument("--headless")
+                    firefoxOptions.add_argument("--disable-dev-shm-using")
+                    firefoxOptions.add_argument("--disable-extensions")
+                    firefoxOptions.add_argument("--disable-gpu")
+                    driver = webdriver.Remote(command_executor='http://selenium-grid:4444/wd/hub',options=firefoxOptions)
                     # Login
                     driver.get(
                         "https://www.onleihe.de/hamburg/frontend/myBib,0-0-0-100-0-0-0-0-0-0-0.html")
@@ -177,11 +165,15 @@ try:
                     screenshot(i_s+"2_after_cookie")
                     userName = driver.find_element(By.ID, "userName")
                     password = driver.find_element(By.ID, "password")
+                    submit = driver.find_element(By.NAME, "log")
                     if userName == None:
                         print('username field not found')
                         exit()
                     if password == None:
                         print('password field not found')
+                        exit()
+                    if submit == None:
+                        print('submit not found')
                         exit()
                     print('username and password field found')
                     driver.execute_script(
@@ -194,7 +186,11 @@ try:
                     userName.send_keys(BH_USER)
 
                     print('Login in')
-                    password.send_keys(Keys.RETURN)
+
+                    driver.execute_script(
+                            "arguments[0].scrollIntoView();", submit)
+                    driver.execute_script("arguments[0].click();", submit)
+                    
                     driver.implicitly_wait(4)
                     screenshot(i_s+"3_after_login")
                     logout = driver.find_element(

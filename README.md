@@ -6,8 +6,8 @@ Status: Not working (on arm64). chromedriver chrashes.
 
 Build with: 
 
-docker build --platform linux/arm64 -t eu-frankfurt-1.ocir.io/frs4lzee0jfi/bh_reservation:latest .
-docker build --platform linux/amd64 -t eu-frankfurt-1.ocir.io/frs4lzee0jfi/bh_reservation:latest .
+docker build --push --platform linux/arm64 -t eu-frankfurt-1.ocir.io/frs4lzee0jfi/bh_reservation:latest .
+
 
 
 
