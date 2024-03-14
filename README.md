@@ -1,14 +1,19 @@
 # k8s_bh_reservation
 ```
 
-Status: Not working (on arm64). chromedriver chrashes. 
-
 
 Build with: 
 
 docker build --push --platform linux/arm64 -t eu-frankfurt-1.ocir.io/frs4lzee0jfi/bh_reservation:latest .
 
 
+k apply -f k8s/bh_reserve_pvc.yaml
+
+k apply -f k8s/bh_reserve_configmaps.yaml
+k apply -f k8s/bh_reserve_secrets.yaml
+
+k delete -f k8s/bh_reserve_cronjobs.yaml
+k apply -f k8s/bh_reserve_cronjobs.yaml
 
 
 Run with: 

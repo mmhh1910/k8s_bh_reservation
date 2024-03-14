@@ -35,6 +35,16 @@ spec:
                     secretKeyRef:
                       name: bhreserve
                       key: BH_PASSWORD
+                - name: BH_USER_SH
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: BH_USER_SH
+                - name: BH_PASSWORD_SH
+                  valueFrom:
+                    secretKeyRef:
+                      name: bhreserve
+                      key: BH_PASSWORD_SH
                 - name: SMTP_HOST
                   valueFrom:
                     secretKeyRef:

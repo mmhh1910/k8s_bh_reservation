@@ -10,4 +10,4 @@ RUN pip3 install -r requirements.txt --break-system-packages
 
 COPY . .
 
-CMD ["python3", "bh_reserve.py"]
+CMD ["python3", "bh_reserve_sh.py"]
