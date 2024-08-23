@@ -39,6 +39,9 @@ spec:
             limits:
               memory: "2Gi"
               cpu: "700m"
+            requests:
+              memory: "1Gi"
+              cpu: "400m"
           ports:
             - containerPort: 4444
             - containerPort: 5900
