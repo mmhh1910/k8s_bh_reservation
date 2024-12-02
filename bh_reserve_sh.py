@@ -16,6 +16,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
+import ssl
 import re
 import traceback
 
@@ -91,11 +92,18 @@ try:
                     img_data = f.read()
                     image = MIMEImage(img_data, name=os.path.basename(imageFN))
                     msg.attach(image)
-            server = smtplib.SMTP(server)
+
+            # print("SMTP server: "+server)
+            # print("SMTP username: "+smtp_username)
+            server = smtplib.SMTP(server,587)
+            server.ehlo()
+            server.starttls(context=ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=None, capath=None))
+            server.ehlo()
             # server.set_debuglevel(1)
             server.login(SMTP_USERNAME, SMTP_PASSWORD)
             server.send_message(msg)
             server.quit()
+
 
     import pickle
 
@@ -113,6 +121,8 @@ try:
     datestring = a.strftime("%Y-%m-%d")
 
     main_url = "https://www.onleihe.de/schleswig_holstein/frontend/mediaList,0-0-0-101-0-0-0-0-400005-0-0.html"
+
+
 
     req = requests.post(
         main_url,
