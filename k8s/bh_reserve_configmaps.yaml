@@ -4,4 +4,4 @@ kind: ConfigMap
 metadata:
   name: bhreserve
 data:
-  searchterms: '["test", "SPIEGEL", "Spektrum", "National", "Zeit Wissen"]'
+  searchterms: '["test", "SPIEGEL", "Spektrum",  "Zeit Wissen", "GEO Epoche", "Der Spiegel", "WirtschaftsWoche"]'

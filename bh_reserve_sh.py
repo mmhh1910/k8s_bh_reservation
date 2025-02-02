@@ -73,6 +73,7 @@ try:
         from_email=SMTP_FROM,
         imageFN=None
     ):
+        print("send_mail/SMTP func enter")
         if ENABLE_EMAIL:
             # Create message container - the correct MIME type is multipart/alternative.
             msg = MIMEMultipart("alternative")
