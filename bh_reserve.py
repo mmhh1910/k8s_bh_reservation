@@ -183,8 +183,7 @@ try:
                         print('submit not found')
                         exit()
                     print('username and password field found')
-                    driver.execute_script(
-                        "arguments[0].scrollIntoView();", password)
+                    driver.execute_script("arguments[0].scrollIntoView();", password)
                     # screenshot(i_s+"2a_after_cookie_scrollinview")
                     password.clear()
                     password.send_keys(BH_PASSWORD)
@@ -194,30 +193,40 @@ try:
 
                     print('Login in')
 
-                    driver.execute_script(
-                            "arguments[0].scrollIntoView();", submit)
+                    driver.execute_script("arguments[0].scrollIntoView();", submit)
+                    time.sleep(1)
                     driver.execute_script("arguments[0].click();", submit)
                     
                     driver.implicitly_wait(4)
-                    screenshot(i_s+"3_after_login")
-                    logout = driver.find_element(
-                        By.PARTIAL_LINK_TEXT, "Logout")
+                    time.sleep(3)
+                    screenshot(i_s+"3_after_login1")
+                    logout=None
+                    try:
+                        logout = driver.find_element(By.PARTIAL_LINK_TEXT, "Logout")
+                    except:
+                        logout=None
+                    if logout == None:
+                        try:
+                            driver.execute_script("arguments[0].click();", submit)
+                        except:
+                            pass
+                        driver.implicitly_wait(3)
+                        time.sleep(3)
+                        screenshot(i_s+"3_after_login2")
+                        logout = driver.find_element(By.PARTIAL_LINK_TEXT, "Logout")
                     assert logout != None
                     print('Logged in')
 
-                driver.get(
-                    'https://www.onleihe.de/hamburg/frontend/'+link.attrs['href'])
+                driver.get('https://www.onleihe.de/hamburg/frontend/'+link.attrs['href'])
                 screenshot(i_s+"4_after_media_browse")
                 vormerken = None
                 try:
-                    vormerken = driver.find_element(
-                        By.PARTIAL_LINK_TEXT, "Vormerken")
+                    vormerken = driver.find_element(By.PARTIAL_LINK_TEXT, "Vormerken")
                 except:
                     None
                 ausleihen = None
                 try:
-                    ausleihen = driver.find_element(
-                        By.XPATH, '/html/body/div[2]/div/div/div/div/div[1]/div[2]/div/div[4]/div[2]/form/div/button')
+                    ausleihen = driver.find_element(By.XPATH, '/html/body/div[2]/div/div/div/div/div[1]/div[2]/div/div[4]/div[2]/form/div/button')
                 except:
                     None
                 if ausleihen != None:
